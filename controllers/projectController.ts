@@ -3,58 +3,40 @@ import { exec } from "child_process";
 const mongoose = require("mongoose");
 import { CommentModel } from "../models/commentModel";
 import { ProjectModel } from "../models/projectModel";
+const moment = require("moment");
 
 export const createProject = async (
   { payload }: Request,
   h: ResponseToolkit
 ): Promise<ResponseObject> => {
-  try {
-    const project = await new ProjectModel(
-      Object.assign(payload, { _id: new mongoose.Types.ObjectId() })
-    ).save();
-
-    const comment = await new CommentModel({
+  const project = await new ProjectModel(
+    Object.assign(payload, {
       _id: new mongoose.Types.ObjectId(),
-      my_comment: "my first comment",
-      created_by: "lixing",
-      project_id: project._id,
-    }).save();
+      created_at: moment(),
+    })
+  ).save();
 
-    console.log(comment);
-
-    return h.response(project).code(200);
-  } catch (err) {
-    console.log(err);
-  }
+  return h.response(project).code(200);
 };
 
 export const getProjects = async (
   { payload }: Request,
   h: ResponseToolkit
 ): Promise<ResponseObject> => {
-  try {
-    const companies = await ProjectModel.find().populate("comments").exec();
+  const companies = await ProjectModel.find().populate("comments").exec();
 
-    return h.response(companies).code(200);
-  } catch (err) {
-    console.log(err);
-  }
+  return h.response(companies).code(200);
 };
 
 export const getProject = async (
   { payload, params }: Request,
   h: ResponseToolkit
 ): Promise<ResponseObject> => {
-  try {
-    const companies = await ProjectModel.findOne({
-      _id: params["project_id"],
-    }).exec();
+  const companies = await ProjectModel.findOne({
+    _id: params["project_id"],
+  }).exec();
 
-    const comment = await companies.populate("comments").execPopulate();
-    console.log("comment", comment);
+  const comment = await companies.populate("comments").execPopulate();
 
-    return h.response(companies).code(200);
-  } catch (err) {
-    console.log(err);
-  }
+  return h.response(companies).code(200);
 };

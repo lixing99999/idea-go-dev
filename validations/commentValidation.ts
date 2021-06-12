@@ -1,6 +1,6 @@
 import { date, string } from "joi";
 
-export const projectValidation = {
-  name: string(),
+export const commentValidation = {
+  my_comment: string(),
   created_by: string(),
 };
