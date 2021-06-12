@@ -4,13 +4,21 @@ import {
   getAllComments,
   getProjectComments,
 } from "../controllers/commentController";
-import { createProject } from "../controllers/projectController";
-import { projectValidation } from "../validations/projectValidation";
 const Joi = require("joi");
+import { commentValidation } from "../validations/commentValidation";
+
 const commentRoutes = [
   {
     method: "POST",
     path: "/project/{project_id}/comment",
+    options: {
+      validate: {
+        payload: Joi.object(commentValidation),
+        failAction: async (_request, _h: ResponseToolkit, err?: Error) => {
+          throw err;
+        },
+      },
+    },
     handler: createComment,
   },
   {
