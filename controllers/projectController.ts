@@ -23,6 +23,7 @@ export const getProjects = async (
   { payload }: Request,
   h: ResponseToolkit
 ): Promise<ResponseObject> => {
+  console.log("heroku log");
   const companies = await ProjectModel.find().populate("comments").exec();
 
   return h.response(companies).code(200);
