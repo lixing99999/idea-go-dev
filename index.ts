@@ -1,7 +1,7 @@
 import { Server, Request, ResponseToolkit } from "@hapi/hapi";
 import { connection } from "./connection";
 const dotenv = require("dotenv");
-dotenv.config({ path: "./.env" });
+dotenv.config({ path: "./.env", slient: true });
 
 const init = async () => {
   const server: Server = new Server({
