@@ -5,7 +5,7 @@ dotenv.config({ path: "./.env" });
 
 const init = async () => {
   const server: Server = new Server({
-    port: process.env.PORT,
+    port: process.env.PORT || 5000,
     host: process.env.HOST,
     routes: {
       cors: {
