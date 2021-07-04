@@ -64,7 +64,9 @@ var getProjects = function (_a, h) {
         var companies;
         return __generator(this, function (_b) {
             switch (_b.label) {
-                case 0: return [4 /*yield*/, projectModel_1.ProjectModel.find().populate("comments").exec()];
+                case 0:
+                    console.log("heroku log");
+                    return [4 /*yield*/, projectModel_1.ProjectModel.find().populate("comments").exec()];
                 case 1:
                     companies = _b.sent();
                     return [2 /*return*/, h.response(companies).code(200)];

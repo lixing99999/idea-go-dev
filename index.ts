@@ -1,7 +1,5 @@
 import { Server, Request, ResponseToolkit } from "@hapi/hapi";
 import { connection } from "./connection";
-const dotenv = require("dotenv");
-dotenv.config({ slient: true });
 
 const init = async () => {
   const server: Server = new Server({
@@ -13,9 +11,6 @@ const init = async () => {
       },
     },
   });
-
-  const result = dotenv.config();
-  if (result.error) throw result.error;
 
   const io = require("socket.io")(server.listener, {
     cors: {

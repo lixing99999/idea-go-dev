@@ -39,14 +39,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var hapi_1 = require("@hapi/hapi");
 var connection_1 = require("./connection");
 var dotenv = require("dotenv");
-dotenv.config({ path: "./.env" });
+dotenv.config({ slient: true });
 var init = function () { return __awaiter(void 0, void 0, void 0, function () {
     var server, result, io, routes;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 server = new hapi_1.Server({
-                    port: process.env.PORT,
+                    port: process.env.PORT || 5000,
                     host: process.env.HOST,
                     routes: {
                         cors: {
